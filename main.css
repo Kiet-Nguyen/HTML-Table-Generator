@@ -68,6 +68,14 @@ input:focus {
   border-right: 1px solid var(--light-gray);
 }
 
+.border-top {
+  border-top: 1px solid var(--light-gray);
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--light-gray);
+}
+
 /* Margin & Padding */
 .mb-xs {
   margin-bottom: 0.5rem;
@@ -82,9 +90,9 @@ input:focus {
   padding-right: 0.8rem;
 }
 
-.px-sm {
-  padding-left: 1.2rem;
-  padding-right: 1.2rem;
+.px-md {
+  padding-left: 2.8rem;
+  padding-right: 2.8rem;
 }
 
 .py-xs {
@@ -118,11 +126,20 @@ input:focus {
 
 .generate-table {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .display-input-field {
   padding-left: 1rem;
-  cursor: pointer;
+  align-self: center;
 }
 
 .input-columns-rows {
@@ -153,13 +170,10 @@ input:focus {
 */
 
 .items-container {
-  border-top: 1px solid var(--light-gray);
-  border-bottom: 1px solid var(--light-gray);
   display: flex;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  width: 78.75rem;
-  margin: 0 auto;
 }
 
 .list-items {
@@ -172,12 +186,21 @@ input:focus {
 }
 
 .icon {
-  cursor: pointer;
   box-shadow: 2px 2px 7px -1px var(--dark-gray);
   padding: 0.5rem;
 }
 
-.icon:hover {
+.align-btn {
+  background-color: transparent;
+  color: var(--light-gray);
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.align-btn:hover,
+.align-btn:active,
+.align-btn:focus {
+  outline: none;
   background-color: var(--light-gray2);
 }
 
@@ -197,28 +220,33 @@ input:focus {
 }
 
 .banner-text-align {
-  top: 52px;
+  top: 47px;
   left: -26px;
 }
 
 .banner-font-type {
-  top: 55px;
-  left: 32px;
+  top: 47px;
+  left: 70px;
 }
 
 .banner-font-size {
-  top: 55px;
-  left: -1px;
+  top: 47px;
+  left: 40px;
 }
 
 .banner-text-color {
-  top: 54px;
-  left: -13px;
+  top: 46px;
+  left: 19px;
 }
 
 .banner-font-weight {
-  top: 55px;
-  left: 5px;
+  top: 47px;
+  left: 42px;
+}
+
+.banner-table-bg {
+  top: 46px;
+  left: -14px;
 }
 
 .banner:after {
@@ -310,11 +338,6 @@ input:focus {
 }
 
 .generated-table {
-  margin: 0 auto;
+  margin: 2rem auto;
   color: var(--dark-gray);
-}
-
-td,
-th {
-  border: 1px solid var(--dark-gray);
 }

@@ -5,57 +5,140 @@ const elements = {
   inputColumns: document.querySelector('#js-columns'),
   generateBtn: document.querySelector('.js-generate'),
   deleteBtn: document.querySelector('.js-delete'),
-  tableHead: document.querySelector('.js-thead'),
-  tableBody: document.querySelector('.js-tbody'),
-  table: document.querySelector('.js-table')
+  tableContainer: document.querySelector('.main-container'),
+  inputPercentage: document.querySelector('#js-percentage'),
+  inputPixel: document.querySelector('#js-pixel'),
+  alignLeft: document.querySelector('.align-left'),
+  alignCenter: document.querySelector('.align-center'),
+  alignRight: document.querySelector('.align-right'),
+  fontSize: document.querySelector('#font-size')
 };
 
-/** Hide or show input fields, generate btn and hidden btn */
-elements.showOrHideBtn.addEventListener('click', () => {
-  elements.hiddenDiv.classList.toggle('hidden');
-});
+let columnsInputValue;
+let rowsInputValue;
+let tableWidthInputValue;
+let borderWidthInputValue;
 
 /**
- * Generate table rows
+ * Generate table
  **/
-const generateTable = () => {
-  const rowsInputValue = parseInt(elements.inputRows.value);
-  const columnsInputValue = parseInt(elements.inputColumns.value);
 
-  for (let rowIndex = 0; rowIndex < rowsInputValue; rowIndex++) {
-    let row = elements.tableBody.insertRow(rowIndex);
+const generateCells = numOfColumns => {
+  let html = '';
 
-    for (let columnIndex = 0; columnIndex < columnsInputValue; columnIndex++) {
-      if (rowIndex === 0) {
-        let cellHead = row.insertCell(columnIndex);
-        cellHead.innerHTML = `RowHed ${rowIndex +
-          1} -  ColumnHead ${columnIndex + 1}`;
-      } else if (rowIndex >= 1) {
-        let cell = row.insertCell(columnIndex);
-        cell.innerHTML = `Row ${rowIndex + 1} -  Column ${columnIndex + 1}`;
-      }
-    }
+  for (let colIndex = 0; colIndex < numOfColumns; colIndex++) {
+    html += `<td style="border: ${borderWidthInputValue}px solid #4d5256;">Cell ${colIndex +
+      1}</td>`;
   }
+
+  return html;
 };
 
+const generateRows = numOfRows => {
+  const cell = generateCells(columnsInputValue);
+  let html = '';
+
+  for (let rowIndex = 0; rowIndex < numOfRows; rowIndex++) {
+    html += `<tr>${cell}</tr>`;
+  }
+
+  return html;
+};
+
+const generateTable = () => {
+  const markup = `
+    <table class="js-table generated-table" 
+      style="width: ${tableWidthInputValue}%; 
+      border: ${borderWidthInputValue}px solid #4d5256;
+      border-collapse: collapse;
+      table-layout: fixed;"
+      >
+      <thead class="js-thead table-head">
+        ${generateRows(1)}
+      </thead>
+      <tbody class="js-tbody table-body">
+        ${generateRows(rowsInputValue - 1)}
+      </tbody>
+    </table>
+  `;
+  elements.tableContainer.insertAdjacentHTML('afterbegin', markup);
+};
+
+/**
+ * Delete table, clear input value
+ **/
+
 const deleteTable = () => {
-  elements.tableBody.innerHTML = ' ';
+  elements.tableContainer.innerHTML = '';
 };
 
 const clearInputValue = () => {
-  elements.inputColumns.value = ' ';
-  elements.inputRows.value = ' ';
+  elements.inputColumns.value = '';
+  elements.inputRows.value = '';
+  elements.inputPercentage.value = '';
+  elements.inputPixel.value = '';
 };
 
-/** 
- * Add Event Listener
-*/
+/**
+ * Request json data
+ **/
 
-// Add table 
+const requestData = () => {
+  const requestURL =
+    'https://raw.githubusercontent.com/jonathantneal/google-fonts-complete/master/google-fonts.json';
+
+  const request = new XMLHttpRequest();
+  request.open('GET', requestURL);
+  request.responseType = 'json';
+  request.send();
+  request.onload = function() {
+    const fontFamily = request.response;
+    const fontFamilyArr = Object.keys(fontFamily);
+
+    return fontFamilyArr;
+  };
+};
+
+const generateFontSizeOptions = () => {
+  const optionsContainer = elements.fontSize;
+  for (let optionIndex = 1; optionIndex < 100; optionIndex++) {
+    optionsContainer.insertAdjacentHTML(
+      'afterbegin',
+      `<option>${optionIndex}</option>`
+    );
+  }
+};
+
+/**
+ * Add Event Listener
+ */
+
+// Add table
 elements.generateBtn.addEventListener('click', () => {
+  columnsInputValue = parseInt(elements.inputColumns.value);
+  rowsInputValue = parseInt(elements.inputRows.value);
+  tableWidthInputValue = parseInt(elements.inputPercentage.value);
+  borderWidthInputValue = parseInt(elements.inputPixel.value);
   generateTable();
   clearInputValue();
 });
 
 // Delete table
 elements.deleteBtn.addEventListener('click', deleteTable);
+
+// Align text
+elements.alignLeft.addEventListener('click', () => {
+  document.querySelector('.generated-table').style.textAlign = 'left';
+});
+elements.alignCenter.addEventListener('click', () => {
+  document.querySelector('.generated-table').style.textAlign = 'center';
+});
+elements.alignRight.addEventListener('click', () => {
+  document.querySelector('.generated-table').style.textAlign = 'right';
+});
+
+const init = () => {
+  generateFontSizeOptions();
+};
+
+init();
