@@ -14,6 +14,7 @@ const elements = {
   fontSize: document.querySelector('#font-size')
 };
 
+// Initialize variables for input fields
 let columnsInputValue;
 let rowsInputValue;
 let tableWidthInputValue;
@@ -27,8 +28,7 @@ const generateCells = numOfColumns => {
   let html = '';
 
   for (let colIndex = 0; colIndex < numOfColumns; colIndex++) {
-    html += `<td style="border: ${borderWidthInputValue}px solid #4d5256;">Cell ${colIndex +
-      1}</td>`;
+    html += `<td class="border-style">Cell ${colIndex + 1}</td>`;
   }
 
   return html;
@@ -47,13 +47,7 @@ const generateRows = numOfRows => {
 
 const generateTable = () => {
   const markup = `
-    <table class="js-table generated-table" style="
-      width: ${tableWidthInputValue}%; 
-      border: ${borderWidthInputValue}px solid #4d5256;
-      border-collapse: collapse;
-      table-layout: fixed;
-      font-size: ${setFontSize()}px;
-      ">
+    <table class="js-table generated-table">
       <thead class="js-thead table-head">
         ${generateRows(1)}
       </thead>
@@ -63,8 +57,23 @@ const generateTable = () => {
     </table>
   `;
   elements.tableContainer.insertAdjacentHTML('afterbegin', markup);
-  document.querySelector('.js-table').style.fontSize = 32;
 };
+
+/**
+ * Set style for table and cell
+ **/
+
+const setStyleForTable = table => {
+  table.style.width = `${tableWidthInputValue}%`;
+  table.style.border = `${borderWidthInputValue}px solid #4d5256`;
+  table.style.borderCollapse = 'collapse';
+  table.style.tableLayout = 'fixed';
+  //table.fontSize = `${setFontSize()}px`;
+}
+
+const setStyleForTableCells = cells => {
+  cells.forEach(cell => cell.style.border = `${borderWidthInputValue}px solid #4d5256`);
+}
 
 /**
  * Delete table, clear input value
@@ -118,11 +127,22 @@ const setFontSize = () => {
 
 // Add table
 elements.generateBtn.addEventListener('click', () => {
+  // Receive input in number format
   columnsInputValue = parseInt(elements.inputColumns.value);
   rowsInputValue = parseInt(elements.inputRows.value);
   tableWidthInputValue = parseInt(elements.inputPercentage.value);
   borderWidthInputValue = parseInt(elements.inputPixel.value);
+  
+  // Generate table
   generateTable();
+
+  // Set styles
+  const table = document.querySelector('.js-table');
+  const tableCells = document.querySelectorAll('.border-style');
+  setStyleForTable(table);
+  setStyleForTableCells(tableCells);
+
+  // Clear all input fields
   clearInputValue();
 });
 
