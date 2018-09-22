@@ -11,7 +11,11 @@ const elements = {
   alignLeft: document.querySelector('.align-left'),
   alignCenter: document.querySelector('.align-center'),
   alignRight: document.querySelector('.align-right'),
-  fontSize: document.querySelector('#font-size')
+  fontSize: document.querySelector('#font-size'),
+  tableBgColor: document.querySelector('#table-bg-color'),
+  tableHeadBgColor: document.querySelector('#head-bg-color'),
+  tableBodyBgColor: document.querySelector('#body-bg-color'),
+  tableTextColor: document.querySelector('#text-color')
 };
 
 // Initialize variables for input fields
@@ -68,12 +72,15 @@ const setStyleForTable = table => {
   table.style.border = `${borderWidthInputValue}px solid #4d5256`;
   table.style.borderCollapse = 'collapse';
   table.style.tableLayout = 'fixed';
-  //table.fontSize = `${setFontSize()}px`;
-}
+  table.style.fontSize = `${setDefaultFontSize()}px`;
+};
 
 const setStyleForTableCells = cells => {
-  cells.forEach(cell => cell.style.border = `${borderWidthInputValue}px solid #4d5256`);
-}
+  cells.forEach(cell => {
+    cell.style.border = `${borderWidthInputValue}px solid #4d5256`;
+    cell.style.padding = '1rem';
+  });
+};
 
 /**
  * Delete table, clear input value
@@ -104,21 +111,22 @@ const requestData = async () => {
 
 const generateFontSizeOptions = () => {
   const optionsContainer = elements.fontSize;
-  let size = 1;
 
   for (let optionIndex = 0; optionIndex < 99; optionIndex++) {
     optionsContainer.insertAdjacentHTML(
       'afterbegin',
-      `<option value="${size}">${size}</option>`
+      `<option value="${optionIndex + 1}">${optionIndex + 1}</option>`
     );
-    size++;
   }
-
+  elements.fontSize.options.selectedIndex = 83;
+  
   return elements.fontSize.options;
 };
 
-const setFontSize = () => {
-  
+const setDefaultFontSize = () => {
+  const options = generateFontSizeOptions();
+  const defaultFontSize = options[options.selectedIndex].value;
+  return defaultFontSize;
 };
 
 /**
@@ -160,6 +168,25 @@ elements.alignRight.addEventListener('click', () => {
   document.querySelector('.generated-table').style.textAlign = 'right';
 });
 
+// Change background color and text color
+elements.tableBgColor.addEventListener('change', (e) => {
+  document.querySelector('.generated-table').style.backgroundColor = e.srcElement.value;
+});
+elements.tableHeadBgColor.addEventListener('change', (e) => {
+  document.querySelector('.table-head').style.backgroundColor = e.srcElement.value;
+});
+elements.tableBodyBgColor.addEventListener('change', (e) => {
+  document.querySelector('.table-body').style.backgroundColor = e.srcElement.value;
+});
+elements.tableTextColor.addEventListener('change', (e) => {
+  document.querySelector('.generated-table').style.color = e.srcElement.value;
+});
+
+// Set font-size for table
+elements.fontSize.addEventListener('change', (e) => {
+  let selectedValue = e.srcElement.options[e.srcElement.selectedIndex].value;
+  document.querySelector('.generated-table').style.fontSize = `${selectedValue}px`;
+});
 
 const init = () => {
   generateFontSizeOptions();
