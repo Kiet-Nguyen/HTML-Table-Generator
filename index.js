@@ -47,12 +47,13 @@ const generateRows = numOfRows => {
 
 const generateTable = () => {
   const markup = `
-    <table class="js-table generated-table" 
-      style="width: ${tableWidthInputValue}%; 
+    <table class="js-table generated-table" style="
+      width: ${tableWidthInputValue}%; 
       border: ${borderWidthInputValue}px solid #4d5256;
       border-collapse: collapse;
-      table-layout: fixed;"
-      >
+      table-layout: fixed;
+      font-size: ${setFontSize()}px;
+      ">
       <thead class="js-thead table-head">
         ${generateRows(1)}
       </thead>
@@ -62,6 +63,7 @@ const generateTable = () => {
     </table>
   `;
   elements.tableContainer.insertAdjacentHTML('afterbegin', markup);
+  document.querySelector('.js-table').style.fontSize = 32;
 };
 
 /**
@@ -83,30 +85,31 @@ const clearInputValue = () => {
  * Request json data
  **/
 
-const requestData = () => {
+const requestData = async () => {
   const requestURL =
     'https://raw.githubusercontent.com/jonathantneal/google-fonts-complete/master/google-fonts.json';
 
-  const request = new XMLHttpRequest();
-  request.open('GET', requestURL);
-  request.responseType = 'json';
-  request.send();
-  request.onload = function() {
-    const fontFamily = request.response;
-    const fontFamilyArr = Object.keys(fontFamily);
-
-    return fontFamilyArr;
-  };
+  const response = await fetch(requestURL);
+  const jsonResponse = await response.json();
 };
 
 const generateFontSizeOptions = () => {
   const optionsContainer = elements.fontSize;
-  for (let optionIndex = 1; optionIndex < 100; optionIndex++) {
+  let size = 1;
+
+  for (let optionIndex = 0; optionIndex < 99; optionIndex++) {
     optionsContainer.insertAdjacentHTML(
       'afterbegin',
-      `<option>${optionIndex}</option>`
+      `<option value="${size}">${size}</option>`
     );
+    size++;
   }
+
+  return elements.fontSize.options;
+};
+
+const setFontSize = () => {
+  
 };
 
 /**
@@ -136,6 +139,7 @@ elements.alignCenter.addEventListener('click', () => {
 elements.alignRight.addEventListener('click', () => {
   document.querySelector('.generated-table').style.textAlign = 'right';
 });
+
 
 const init = () => {
   generateFontSizeOptions();
