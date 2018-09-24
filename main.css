@@ -90,9 +90,9 @@ input:focus {
   padding-right: 0.8rem;
 }
 
-.px-md {
-  padding-left: 2.8rem;
-  padding-right: 2.8rem;
+.px-sm {
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
 }
 
 .py-xs {
@@ -128,13 +128,15 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   padding: 1rem;
 }
 
 .d-flex {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .display-input-field {
@@ -171,7 +173,7 @@ input:focus {
 
 .items-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -226,22 +228,22 @@ input:focus {
 
 .banner-font-type {
   top: 47px;
-  left: 70px;
+  left: 140px;
 }
 
 .banner-font-size {
   top: 47px;
-  left: 40px;
+  left: 22px;
 }
 
 .banner-text-color {
   top: 46px;
-  left: 19px;
+  left: 2px;
 }
 
 .banner-font-weight {
   top: 47px;
-  left: 42px;
+  left: 26px;
 }
 
 .banner-table-bg {
@@ -310,9 +312,23 @@ input:focus {
 }
 
 .input-color {
+  
+}
+
+.input-color{
   height: 4px;
   width: 1.5rem;
   cursor: pointer;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.input-color::-webkit-color-swatch-wrapper {
+  padding: 0;	
+}
+.input-color::-webkit-color-swatch {
+  border: none;
 }
 
 .input-number {
@@ -340,4 +356,16 @@ input:focus {
 .generated-table {
   margin: 2rem auto;
   color: var(--dark-gray);
+}
+
+@media only screen and (max-width: 934px) {
+  .buttons-container {
+    margin-top: 2rem;
+  }
+}
+
+@media only screen and (max-width: 736px) {
+  .mt-sm-screen {
+    margin-top: 1rem;
+  }
 }

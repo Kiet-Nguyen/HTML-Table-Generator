@@ -34,19 +34,20 @@
             <input type="number" id="js-columns" placeholder="Number of columns" class="input-number">
           </div>
 
-          <!-- Table width in percentage -->
-          <div class="mr-sm">
-            <input type="number" id="js-percentage" placeholder="Table width (%)" class="input-number">
-          </div>
-          
-          
-          <!-- Border width in pixel -->
-          <div class="mr-sm">
-            <input type="number" id="js-pixel" placeholder="Border width (px)" class="input-number">
+          <div class="d-flex mt-sm-screen">
+            <!-- Table width in percentage -->
+            <div class="mr-sm">
+              <input type="number" id="js-percentage" placeholder="Table width (%)" class="input-number">
+            </div>
+            
+            <!-- Border width in pixel -->
+            <div class="mr-sm">
+              <input type="number" id="js-pixel" placeholder="Border width (px)" class="input-number">
+            </div>
           </div>
         </div>
         
-        <div class="d-flex">
+        <div class="d-flex buttons-container">
           <!-- Generate -->
           <div class="js-generate">
             <span class="btn generate-btn">Generate</span>
@@ -63,7 +64,7 @@
     <div class="bg-gray">
       <div class="container border-bottom border-top items-container">
         <!-- Text align -->
-        <div class="border-right px-md">
+        <div class="border-right px-sm">
           <ul class="list-items">
             <li class="hover-effect mr-sm">
               <button type="button" class="align-btn align-left"><i class="fas fa-align-left icon-size icon"></i></button>
@@ -83,37 +84,37 @@
         </div>
         
         <!-- Select font type  -->
-        <div class="border-right py-xs px-md hover-effect">
+        <div class="border-right py-xs px-sm hover-effect">
           <div class="select-custom select-font-type bg-light-gray2">
-            <select name="" id="font-type" class="py-xs">
-              <option value="">Montserrat</option>
+            <select id="font-family" class="py-xs">
+              <!-- <option value="">Montserrat</option> -->
             </select>
             <span class="banner banner-font-type">Font</span>
           </div>
         </div>
         
         <!-- Select font size  -->
-        <div class="border-right py-xs px-md hover-effect">
+        <div class="border-right py-xs px-sm hover-effect">
           <div class="select-custom py-xs select-font-size bg-light-gray2">
-            <select name="" id="font-size" class="py-xs"></select>
+            <select id="font-size" class="py-xs"></select>
             <span class="banner banner-font-size">Font size</span>
           </div>
         </div>
         
         <!-- Text color -->
-        <div class="border-right py-xs px-md hover-effect">
+        <div class="border-right py-xs px-sm hover-effect">
           <div class="change-color">
             <label for="text-color"><i class="fas fa-font icon-size"></i></label>
-            <input type="color" id="text-color" name="color" value="#e66465" class="input-color">
+            <input type="color" id="text-color" name="color" value="#000000" class="input-color">
             <span class="banner banner-text-color">Text color</span>
           </div>
         </div>
         
         <!-- Font weight -->
-        <div class="border-right py-xs px-md hover-effect">
+        <div class="border-right py-xs px-sm hover-effect">
           <div class="select-custom select-font-weight bg-light-gray2">
-            <select name="" id="font-weight" class="">
-              <option value="">500</option>
+            <select id="font-weight" class="">
+              <!-- <option value="">500</option> -->
             </select>
             <span class="banner banner-font-weight">Font weight</span>
           </div>
@@ -124,7 +125,7 @@
           <div class="px-xs hover-effect">
             <div class="change-color py-xs">
               <label for="table-bg-color"><i class="fas fa-table table-icon"></i></label>
-              <input type="color" id="table-bg-color" name="color" value="#e66465" class="input-color">
+              <input type="color" id="table-bg-color" name="color" value="#e1e8f0" class="input-color">
               <span class="banner banner-table-bg">Table background color</span>
             </div>
           </div>
@@ -133,7 +134,7 @@
           <div class="px-xs hover-effect">
             <div class="change-color py-xs">
               <label for="head-bg-color"><i class="fas fa-table table-icon"></i></label>
-              <input type="color" id="head-bg-color" name="color" value="#e66465" class="input-color">
+              <input type="color" id="head-bg-color" name="color" value="#e1e8f0" class="input-color">
               <span class="banner banner-table-bg">Head background color</span>
             </div>
           </div>
@@ -142,7 +143,7 @@
           <div class="px-xs hover-effect">
             <div class="change-color py-xs">
               <label for="body-bg-color"><i class="fas fa-table table-icon"></i></label>
-              <input type="color" id="body-bg-color" name="color" value="#e66465" class="input-color">
+              <input type="color" id="body-bg-color" name="color" value="#e1e8f0" class="input-color">
               <span class="banner banner-table-bg">Body background color</span>
             </div>
           </div>

@@ -12,6 +12,8 @@ const elements = {
   alignCenter: document.querySelector('.align-center'),
   alignRight: document.querySelector('.align-right'),
   fontSize: document.querySelector('#font-size'),
+  fontFamily: document.querySelector('#font-family'),
+  fontWeight: document.querySelector('#font-weight'),
   tableBgColor: document.querySelector('#table-bg-color'),
   tableHeadBgColor: document.querySelector('#head-bg-color'),
   tableBodyBgColor: document.querySelector('#body-bg-color'),
@@ -101,12 +103,20 @@ const clearInputValue = () => {
  * Request json data
  **/
 
-const requestData = async () => {
+const generateFontFamilyOptions = async () => {
   const requestURL =
     'https://raw.githubusercontent.com/jonathantneal/google-fonts-complete/master/google-fonts.json';
-
   const response = await fetch(requestURL);
   const jsonResponse = await response.json();
+  const resultArr = Object.keys(jsonResponse);
+  const fontContainer = elements.fontFamily;
+
+  resultArr.forEach(result => {
+    fontContainer.insertAdjacentHTML(
+      'afterbegin',
+      `<option>${result}</option>`
+    );
+  });
 };
 
 const generateFontSizeOptions = () => {
@@ -119,7 +129,7 @@ const generateFontSizeOptions = () => {
     );
   }
   elements.fontSize.options.selectedIndex = 83;
-  
+
   return elements.fontSize.options;
 };
 
@@ -127,6 +137,17 @@ const setDefaultFontSize = () => {
   const options = generateFontSizeOptions();
   const defaultFontSize = options[options.selectedIndex].value;
   return defaultFontSize;
+};
+
+const generateFontWeightOptions = () => {
+  const optionsArr = [400, 500, 700, 900];
+
+  optionsArr.forEach(option => {
+    elements.fontWeight.insertAdjacentHTML(
+      'afterbegin',
+      `<option>${option}</option>`
+    );
+  });
 };
 
 /**
@@ -140,7 +161,7 @@ elements.generateBtn.addEventListener('click', () => {
   rowsInputValue = parseInt(elements.inputRows.value);
   tableWidthInputValue = parseInt(elements.inputPercentage.value);
   borderWidthInputValue = parseInt(elements.inputPixel.value);
-  
+
   // Generate table
   generateTable();
 
@@ -169,27 +190,44 @@ elements.alignRight.addEventListener('click', () => {
 });
 
 // Change background color and text color
-elements.tableBgColor.addEventListener('change', (e) => {
-  document.querySelector('.generated-table').style.backgroundColor = e.srcElement.value;
+elements.tableBgColor.addEventListener('change', e => {
+  document.querySelector('.generated-table').style.backgroundColor =
+    e.srcElement.value;
 });
-elements.tableHeadBgColor.addEventListener('change', (e) => {
-  document.querySelector('.table-head').style.backgroundColor = e.srcElement.value;
+elements.tableHeadBgColor.addEventListener('change', e => {
+  document.querySelector('.table-head').style.backgroundColor =
+    e.srcElement.value;
 });
-elements.tableBodyBgColor.addEventListener('change', (e) => {
-  document.querySelector('.table-body').style.backgroundColor = e.srcElement.value;
+elements.tableBodyBgColor.addEventListener('change', e => {
+  document.querySelector('.table-body').style.backgroundColor =
+    e.srcElement.value;
 });
-elements.tableTextColor.addEventListener('change', (e) => {
+elements.tableTextColor.addEventListener('change', e => {
   document.querySelector('.generated-table').style.color = e.srcElement.value;
 });
 
 // Set font-size for table
-elements.fontSize.addEventListener('change', (e) => {
+elements.fontSize.addEventListener('change', e => {
   let selectedValue = e.srcElement.options[e.srcElement.selectedIndex].value;
-  document.querySelector('.generated-table').style.fontSize = `${selectedValue}px`;
+  document.querySelector(
+    '.generated-table'
+  ).style.fontSize = `${selectedValue}px`;
+});
+// Set font-family
+elements.fontFamily.addEventListener('change', e => {
+  let selectedValue = e.srcElement.options[e.srcElement.selectedIndex].value;
+  document.querySelector('.generated-table').style.fontFamily = selectedValue;
+});
+// Set font-weight
+elements.fontWeight.addEventListener('change', e => {
+  let selectedValue = e.srcElement.options[e.srcElement.selectedIndex].value;
+  document.querySelector('.generated-table').style.fontWeight = selectedValue;
 });
 
 const init = () => {
   generateFontSizeOptions();
+  generateFontFamilyOptions();
+  generateFontWeightOptions();
 };
 
 init();
