@@ -14,6 +14,8 @@
   --dark-gray: #4d5256;
   --light-gray: #fdfdfd;
   --light-gray2: #adadad;
+  --pink-rasberry: #89023e;
+  --polished-pine: #6ba292;
 }
 
 html {
@@ -38,6 +40,10 @@ select:focus {
 
 input:focus {
   outline: none;
+}
+
+li:not(:last-child) {
+  margin-right: 1.2rem;
 }
 
 /* Color */
@@ -158,13 +164,25 @@ input:focus {
   cursor: pointer;
 }
 
+.buttons-container {
+  display: flex;
+}
+
 .generate-btn {
   background-color: var(--blue-green);
   margin-right: 5px;
 }
 
+.generate-btn:hover {
+  background-color: var(--polished-pine);
+}
+
 .delete-btn {
   background-color: var(--bright-red);
+}
+
+.delete-btn:hover {
+  background-color: var(--pink-rasberry);
 }
 
 /**
@@ -206,7 +224,8 @@ input:focus {
   background-color: var(--light-gray2);
 }
 
-.hover-effect {
+.hover-effect,
+.hover-effect-2 {
   position: relative;
 }
 
@@ -265,7 +284,8 @@ input:focus {
 	margin-left: -8px;
 }
 
-.hover-effect:hover .banner {
+.hover-effect:hover .banner,
+.hover-effect-2:hover .banner {
   display: inline-block;
 }
 
@@ -367,5 +387,19 @@ input:focus {
 @media only screen and (max-width: 736px) {
   .mt-sm-screen {
     margin-top: 1rem;
+  }
+}
+
+@media only screen and (max-width: 698px) {
+  .mr-sm:nth-child(even) {
+    margin-right: 0;
+  }
+
+  .hover-effect:hover .banner {
+    display: none;
+  }
+
+  .border-right {
+    border: none;
   }
 }
