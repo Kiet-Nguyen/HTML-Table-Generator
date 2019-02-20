@@ -229,5 +229,5 @@ const init = () => {
   generateFontFamilyOptions();
   generateFontWeightOptions();
 };
-
+ 
 init();

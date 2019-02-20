@@ -331,10 +331,6 @@ li:not(:last-child) {
   cursor: pointer;
 }
 
-.input-color {
-  
-}
-
 .input-color{
   height: 4px;
   width: 1.5rem;
